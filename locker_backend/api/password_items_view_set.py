@@ -28,14 +28,8 @@ class PasswordItemsViewSet(viewsets.ModelViewSet):
 
         # Handle filtering by group_id for PUT, DELETE, GET requests
         if group_id == 'null':
-            group_id = None
-
-        if self.request.method in ['PUT', 'DELETE']:
-            if group_id is None:
-                queryset = queryset.filter(group_id__isnull=True)
-            else:
-                queryset = queryset.filter(group_id=group_id)
-        elif group_id:
+            queryset = queryset.filter(group_id__isnull=True)
+        else:
             queryset = queryset.filter(group_id=group_id)
 
         # Apply search filter after the base queryset logic
